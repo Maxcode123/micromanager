@@ -6,4 +6,5 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "docker-composer>=2.79.7",
+    "typer>=0.16.0",
 ]
