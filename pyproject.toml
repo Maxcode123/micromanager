@@ -12,5 +12,5 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "unittest-extensions>=0.3.0",
+    "unittest-extensions>=0.4.0",
 ]
