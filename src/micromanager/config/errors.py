@@ -4,6 +4,14 @@ class ParserError(Exception):
     pass
 
 
+class InvalidConfigFileError(ParserError):
+    """The configuration file is invalid, e.g. because of a typo."""
+
+    def __init__(self, path: str, error: str) -> None:
+        msg = f"The micromanager configuration file {path} is invalid: {error}"
+        super().__init__(msg)
+
+
 class ConfigFileDoesNotExistError(ParserError):
     """The micromanager configuration file was not found in the predefined paths."""
 
