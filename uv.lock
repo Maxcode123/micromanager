@@ -101,12 +101,20 @@ dependencies = [
     { name = "typer" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "unittest-extensions" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "compose-py", specifier = ">=0.3.0" },
     { name = "docker-composer", specifier = ">=2.79.7" },
     { name = "typer", specifier = ">=0.16.0" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "unittest-extensions", specifier = ">=0.3.0" }]
 
 [[package]]
 name = "pygments"
@@ -203,6 +211,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d1/bc/51647cd02527e87d05cb083ccc402f93e441606ff1f01739a62c8ad09ba5/typing_extensions-4.14.0.tar.gz", hash = "sha256:8676b788e32f02ab42d9e7c61324048ae4c6d844a399eebace3d4979d75ceef4", size = 107423 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/69/e0/552843e0d356fbb5256d21449fa957fa4eff3bbc135a74a691ee70c7c5da/typing_extensions-4.14.0-py3-none-any.whl", hash = "sha256:a1514509136dd0b477638fc68d6a91497af5076466ad0fa6c338e44e359944af", size = 43839 },
+]
+
+[[package]]
+name = "unittest-extensions"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/3b/77/9880bd0b63a3dc5edec0c551f822ce6823881f8f93ae6ebf12a34b3debd0/unittest_extensions-0.3.0.tar.gz", hash = "sha256:c8e47b9ccfd8da363210cdbb329c8ac263c4d87546e304856fa19743c73f7c6c", size = 8421 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5e/f6/d35b204a671ea4b292e92a000898973aa39abc794be539666aa2b2b9fce8/unittest_extensions-0.3.0-py3-none-any.whl", hash = "sha256:b954e66314b32cec53a2eef0dbad453dcba2f81ebc1e98f52cc4ac7f17d0c061", size = 7566 },
 ]
 
 [[package]]

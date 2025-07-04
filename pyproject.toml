@@ -9,3 +9,8 @@ dependencies = [
     "docker-composer>=2.79.7",
     "typer>=0.16.0",
 ]
+
+[dependency-groups]
+dev = [
+    "unittest-extensions>=0.3.0",
+]
