@@ -49,6 +49,8 @@ class Parser:
             )
 
         for name, system in json_file["systems"].items():
+            if not isinstance(system, dict):
+                raise InvalidConfigFileError(self._effective_path, f"The system '{name}' is not a valid object")
             config[name] = self._build_system(name, system)
 
         if len(config) == 1:

@@ -213,6 +213,14 @@ class TestParser(TestCase):
 
     @args(
         paths=[Path(".")],
+        json={"systems": {"sys": object()}},
+        yaml={"services": {"app": {}}},
+    )
+    def test_parse_invalid_configuration_system_value(self):
+        self.assert_invalid_config()
+
+    @args(
+        paths=[Path(".")],
         json={"systems": {"sys": {"projectssss": {}}}},
         yaml={"services": {"app": {}}},
     )
