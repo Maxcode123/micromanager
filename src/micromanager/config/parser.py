@@ -74,6 +74,9 @@ class Parser:
         return system
 
     def _build_project(self, name: str, attrs: dict) -> Project:
+        if "compose_file_path" not in attrs:
+            raise InvalidConfigFileError(self._effective_path, f"Project '{name}' does not contain a 'compose_file_path' field")
+
         compose_file_path = Path(attrs["compose_file_path"])
         if not compose_file_path.exists():
             raise ComposeFileDoesNotExistError(name, str(compose_file_path))

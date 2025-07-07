@@ -238,3 +238,18 @@ class TestParser(TestCase):
     )
     def test_parse_invalid_configuration_project_value(self):
         self.assert_invalid_config()
+
+    @args(
+        paths=[Path(".")],
+        json={
+            "systems": {
+                "mysys": {
+                    "default": True,
+                    "projects": {"coolproj": {"field": "."}},
+                }
+            }
+        },
+        yaml={"services": {"db": {}}},
+    )
+    def test_parse_project_compose_file_path_invalid_field(self):
+        self.assert_invalid_config()
