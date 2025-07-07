@@ -6,7 +6,10 @@ from micromanager.config.parser import Parser
 
 
 class AppConfig:
-    """ """
+    """
+    Configuration object for the micromanager tool.
+    Defines helper methods to interact with the configuration.
+    """
 
     _PATH: list[Path] = [
         Path("$HOME/.config/micromanager/config.json"),
@@ -20,21 +23,31 @@ class AppConfig:
         self._parser: Parser = Parser(self._PATH) if parser is None else parser
 
     def get_default_system(self) -> System:
-        """ """
+        """
+        Get the default micromanager system.
+        If only one system is configured, that is the default one.
+        """
         if self._default_system is None:
             self._default_system = self._find_default_system()
 
         return self._default_system
 
     def get_current_system(self) -> System:
-        """ """
+        """
+        Get the current system, i.e. the system that is currently selected.
+        If a specific system is not selected, then the default system is set as the current system.
+        All commands of the micromanager CLI are directed to the current system.
+        """
         if self._current_system is None:
-            self._current_system = self._find_current_system()
+            self._current_system = self._get_current_system()
 
         return self._current_system
 
     def set_current_system(self, system: System) -> None:
-        """ """
+        """
+        Set the current system, i.e. the system that is currently selected.
+        All commands of the micromanager CLI are directed to the current system.
+        """
         self._current_system = system
 
     def _find_default_system(self) -> System:
@@ -43,7 +56,7 @@ class AppConfig:
             if system.default:
                 return system
 
-    def _find_current_system(self) -> System:
+    def _get_current_system(self) -> System:
         if self._current_system is None:
             self._current_system = self.get_default_system()
 
