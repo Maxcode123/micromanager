@@ -50,7 +50,9 @@ class Parser:
 
         for name, system in json_file["systems"].items():
             if not isinstance(system, dict):
-                raise InvalidConfigFileError(self._effective_path, f"The system '{name}' is not a valid object")
+                raise InvalidConfigFileError(
+                    self._effective_path, f"The system '{name}' is not a valid object"
+                )
             config[name] = self._build_system(name, system)
 
         if len(config) == 1:
@@ -62,12 +64,18 @@ class Parser:
         is_default = attrs.get("default", False)
 
         if "projects" not in attrs:
-            raise InvalidConfigFileError(self._effective_path, f"'projects' field does not exist in the '{name}' system")
+            raise InvalidConfigFileError(
+                self._effective_path,
+                f"'projects' field does not exist in the '{name}' system",
+            )
 
         projects = []
         for project_name, project_attrs in attrs["projects"].items():
             if not isinstance(project_attrs, dict):
-                raise InvalidConfigFileError(self._effective_path, f"The project '{project_name}' of system '{name}' is not a valid object")
+                raise InvalidConfigFileError(
+                    self._effective_path,
+                    f"The project '{project_name}' of system '{name}' is not a valid object",
+                )
             projects.append(self._build_project(project_name, project_attrs))
 
         system = System(name=name, is_default=is_default, projects=projects)
@@ -75,7 +83,10 @@ class Parser:
 
     def _build_project(self, name: str, attrs: dict) -> Project:
         if "compose_file_path" not in attrs:
-            raise InvalidConfigFileError(self._effective_path, f"Project '{name}' does not contain a 'compose_file_path' field")
+            raise InvalidConfigFileError(
+                self._effective_path,
+                f"Project '{name}' does not contain a 'compose_file_path' field",
+            )
 
         compose_file_path = Path(attrs["compose_file_path"])
         if not compose_file_path.exists():

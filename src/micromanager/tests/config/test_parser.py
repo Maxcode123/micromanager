@@ -229,11 +229,7 @@ class TestParser(TestCase):
 
     @args(
         paths=[Path(".")],
-        json={
-            "systems": {
-                "sys": {"projects": {"ecommerce": object()}}
-            }
-        },
+        json={"systems": {"sys": {"projects": {"ecommerce": object()}}}},
         yaml={"services": {"app": {}}},
     )
     def test_parse_invalid_configuration_project_value(self):
