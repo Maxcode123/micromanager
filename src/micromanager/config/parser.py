@@ -6,6 +6,7 @@ import json
 import yaml
 
 from micromanager.models import System, Project, Service
+from micromanager.config.models import ConfiguredSystem
 from micromanager.config.errors import (
     ConfigFileDoesNotExistError,
     ComposeFileDoesNotExistError,
@@ -60,18 +61,16 @@ class Parser:
                 )
             config[name] = self._build_system(name, system)
 
-        if len(config) == 1:
-            default = list(json_file["systems"].values())[0].get("default", None)
-
-            if default is None:
-                config[name] = replace(config[name], is_default=True)
-
         self._validate_config(config)
+        config = {name: sys.to_system() for name, sys in config.items()}
+
+        if len(config) == 1:
+            config[name] = replace(config[name], is_default=True)
 
         return config
 
-    def _build_system(self, name: str, attrs: dict) -> System:
-        is_default = attrs.get("default", False)
+    def _build_system(self, name: str, attrs: dict) -> ConfiguredSystem:
+        is_default = attrs.get("default", None)
 
         if "projects" not in attrs:
             raise InvalidConfigFileError(
@@ -88,7 +87,7 @@ class Parser:
                 )
             projects.append(self._build_project(project_name, project_attrs))
 
-        system = System(name=name, is_default=is_default, projects=projects)
+        system = ConfiguredSystem(name=name, is_default=is_default, projects=projects)
         return system
 
     def _build_project(self, name: str, attrs: dict) -> Project:
@@ -123,11 +122,15 @@ class Parser:
                 f"More than one default systems configured ({defaults}); only one system can be the default",
             )
 
-        if len(config) == 1 and not list(config.values())[0].is_default:
+        if len(config) > 1 and len(defaults) == 0:
+            raise InvalidConfigFileError(
+                self._effective_path,
+                'One system must be the default; set "default"="true"',
+            )
+
+        if len(config) == 1 and list(config.values())[0].is_default is False:
             sys_name = list(config.keys())[0]
             raise InvalidConfigFileError(
                 self._effective_path,
-                f"'{sys_name}' must be the default system since it is the only one. set \"default\"=\"true\""
+                f'\'{sys_name}\' must be the default system since it is the only one. set "default"="true"',
             )
-
-
