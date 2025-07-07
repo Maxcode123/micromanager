@@ -28,7 +28,7 @@ class AppConfig:
         If only one system is configured, that is the default one.
         """
         if self._default_system is None:
-            self._default_system = self._find_default_system()
+            self._default_system = self._get_default_system()
 
         return self._default_system
 
@@ -50,10 +50,10 @@ class AppConfig:
         """
         self._current_system = system
 
-    def _find_default_system(self) -> System:
+    def _get_default_system(self) -> System:
         config = self._get_config()
-        for system in config.systems:
-            if system.default:
+        for system in config.values():
+            if system.is_default:
                 return system
 
     def _get_current_system(self) -> System:
