@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Optional
+from dataclasses import replace
 
 import json
 import yaml
@@ -49,6 +50,9 @@ class Parser:
 
         for name, system in json_file["systems"].items():
             config[name] = self._build_system(name, system)
+
+        if len(config) == 1:
+            config[name] = replace(config[name], is_default=True)
 
         return config
 

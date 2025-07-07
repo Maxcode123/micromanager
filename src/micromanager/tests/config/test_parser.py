@@ -169,7 +169,7 @@ class TestParser(TestCase):
         yaml={"services": {"app": {}}},
     )
     def test_parse_default_key_missing_from_single_system(self):
-        self.assertResultNotRaises()
+        self.assertTrue(self.result()["sys"].is_default)
 
     @args(
         paths=[Path(".")],
