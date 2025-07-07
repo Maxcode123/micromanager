@@ -58,6 +58,13 @@ class Parser:
         if len(config) == 1:
             config[name] = replace(config[name], is_default=True)
 
+        defaults = {sys_name for sys_name, sys in config.items() if sys.is_default}
+        if len(defaults) > 1:
+            raise InvalidConfigFileError(
+                self._effective_path,
+                f"More than one default systems configured ({defaults}); only one system can be the default",
+            )
+
         return config
 
     def _build_system(self, name: str, attrs: dict) -> System:
