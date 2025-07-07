@@ -14,7 +14,12 @@ from micromanager.config.errors import (
 
 
 class Parser:
-    """Parser for micromanager configuration file."""
+    """
+    Parser for micromanager configuration file.
+    Responsible for parsing the json config of micromanager and the
+    yml docker compose configs.
+    Also, validates for correct application logic configuration.
+    """
 
     def __init__(self, paths: list[Path], json_parser=json, yaml_parser=yaml) -> None:
         self._paths = paths
@@ -56,14 +61,12 @@ class Parser:
             config[name] = self._build_system(name, system)
 
         if len(config) == 1:
-            config[name] = replace(config[name], is_default=True)
+            default = list(json_file["systems"].values())[0].get("default", None)
 
-        defaults = {sys_name for sys_name, sys in config.items() if sys.is_default}
-        if len(defaults) > 1:
-            raise InvalidConfigFileError(
-                self._effective_path,
-                f"More than one default systems configured ({defaults}); only one system can be the default",
-            )
+            if default is None:
+                config[name] = replace(config[name], is_default=True)
+
+        self._validate_config(config)
 
         return config
 
@@ -111,3 +114,20 @@ class Parser:
 
         services = [Service(name=s) for s in compose_file["services"]]
         return services
+
+    def _validate_config(self, config: dict[str, System]) -> None:
+        defaults = {sys_name for sys_name, sys in config.items() if sys.is_default}
+        if len(defaults) > 1:
+            raise InvalidConfigFileError(
+                self._effective_path,
+                f"More than one default systems configured ({defaults}); only one system can be the default",
+            )
+
+        if len(config) == 1 and not list(config.values())[0].is_default:
+            sys_name = list(config.keys())[0]
+            raise InvalidConfigFileError(
+                self._effective_path,
+                f"'{sys_name}' must be the default system since it is the only one. set \"default\"=\"true\""
+            )
+
+

@@ -268,3 +268,18 @@ class TestParser(TestCase):
     )
     def test_parse_two_default_systems(self):
         self.assert_invalid_config()
+
+    @args(
+        paths=[Path(".")],
+        json={
+            "systems": {
+                "mysys": {
+                    "default": False,
+                    "projects": {"coolproj": {"compose_file_path": "."}},
+                }
+            }
+        },
+        yaml={"services": {"db": {}}},
+    )
+    def test_parse_one_system_default_false(self):
+        self.assert_invalid_config()
