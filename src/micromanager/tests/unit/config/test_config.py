@@ -5,12 +5,7 @@ from unittest_extensions import TestCase, args
 from micromanager.models import System, Project, Service
 from micromanager.config.parser import Parser
 from micromanager.config.config import AppConfig
-from micromanager.config.errors import (
-    ConfigFileDoesNotExistError,
-    ComposeFileDoesNotExistError,
-    InvalidConfigFileError,
-)
-from micromanager.tests.mocks import MockParser
+from micromanager.tests.unit.mocks import MockParser
 
 
 class TestAppConfig:

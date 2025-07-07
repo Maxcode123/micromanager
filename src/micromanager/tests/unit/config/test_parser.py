@@ -9,7 +9,7 @@ from micromanager.config.errors import (
     ComposeFileDoesNotExistError,
     InvalidConfigFileError,
 )
-from micromanager.tests.mocks import MockParser
+from micromanager.tests.unit.mocks import MockParser
 
 
 class TestParser(TestCase):
