@@ -226,3 +226,15 @@ class TestParser(TestCase):
     )
     def test_parse_invalid_configuration_projects_field(self):
         self.assert_invalid_config()
+
+    @args(
+        paths=[Path(".")],
+        json={
+            "systems": {
+                "sys": {"projects": {"ecommerce": object()}}
+            }
+        },
+        yaml={"services": {"app": {}}},
+    )
+    def test_parse_invalid_configuration_project_value(self):
+        self.assert_invalid_config()

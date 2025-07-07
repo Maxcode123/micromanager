@@ -64,9 +64,11 @@ class Parser:
         if "projects" not in attrs:
             raise InvalidConfigFileError(self._effective_path, f"'projects' field does not exist in the '{name}' system")
 
-        projects = [
-            self._build_project(p_name, p) for p_name, p in attrs["projects"].items()
-        ]
+        projects = []
+        for project_name, project_attrs in attrs["projects"].items():
+            if not isinstance(project_attrs, dict):
+                raise InvalidConfigFileError(self._effective_path, f"The project '{project_name}' of system '{name}' is not a valid object")
+            projects.append(self._build_project(project_name, project_attrs))
 
         system = System(name=name, is_default=is_default, projects=projects)
         return system
