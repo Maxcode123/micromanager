@@ -22,20 +22,19 @@ class Parser:
     Also, validates for correct application logic configuration.
     """
 
-    def __init__(self, paths: list[Path], json_parser=json, yaml_parser=yaml) -> None:
-        self._paths = paths
+    def __init__(self, path: Path, json_parser=json, yaml_parser=yaml) -> None:
+        self._path = path
         self._effective_path: Optional[Path] = None
         self._json = json_parser
         self._yaml = yaml_parser
 
     def parse(self) -> dict[str, System]:
         """Parse the configuration file into a dictionary."""
-        for path in self._paths:
-            if path.exists():
-                self._effective_path = path
-                return self._parse_config()
+        if self._path.exists(follow_symlinks=False):
+            self._effective_path = self._path
+            return self._parse_config()
 
-        raise ConfigFileDoesNotExistError(list(map(str, self._paths)))
+        raise ConfigFileDoesNotExistError(str(self._path))
 
     def _parse_config(self) -> dict[str, System]:
         json_file = self._json.load(self._effective_path)

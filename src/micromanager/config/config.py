@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Optional
 
+from platformdirs import user_config_dir
+
 from micromanager.models import System
 from micromanager.config.parser import Parser
 
@@ -11,10 +13,7 @@ class AppConfig:
     Defines helper methods to interact with the configuration.
     """
 
-    _PATH: list[Path] = [
-        Path("$HOME/.config/micromanager/config.json"),
-        Path("/usr/local/etc/micromanager/config.json"),
-    ]
+    _PATH: Path = Path(user_config_dir("micromanager"), "config.json")
 
     def __init__(self, parser=None) -> None:
         self._config: Optional[dict[str, System]] = None

@@ -15,8 +15,8 @@ class InvalidConfigFileError(ParserError):
 class ConfigFileDoesNotExistError(ParserError):
     """The micromanager configuration file was not found in the predefined paths."""
 
-    def __init__(self, paths: list[str]) -> None:
-        msg = f"The micromanager configuration file was not found in the predefined paths: {paths}"
+    def __init__(self, path: str) -> None:
+        msg = f"The micromanager configuration file was not found in the predefined paths: {path}"
         super().__init__(msg)
 
 
