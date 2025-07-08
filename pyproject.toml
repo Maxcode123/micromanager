@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "compose-py>=0.3.0",
     "docker-composer>=2.79.7",
+    "platformdirs>=4.3.8",
     "typer>=0.16.0",
 ]
 

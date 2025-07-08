@@ -9,22 +9,22 @@ from micromanager.tests.unit.mocks import MockParser
 
 
 class TestAppConfig:
-    def parser(self, paths=None, json=None, yaml=None):
-        paths = self.paths if paths is None else paths
+    def parser(self, path=None, json=None, yaml=None):
+        path = self.path if path is None else path
         json = self.json if json is None else json
         yaml = self.yaml if yaml is None else yaml
-        return Parser(paths, MockParser(json), MockParser(yaml))
+        return Parser(path, MockParser(json), MockParser(yaml))
 
-    def config(self, paths=None, json=None, yaml=None):
-        return AppConfig(self.parser(paths, json, yaml))
+    def config(self, path=None, json=None, yaml=None):
+        return AppConfig(self.parser(path, json, yaml))
 
 
 class TestAppConfigGetDefaultSystem(TestAppConfig, TestCase):
-    def subject(self, paths, json, yaml):
-        return self.config(paths, json, yaml).get_default_system()
+    def subject(self, path, json, yaml):
+        return self.config(path, json, yaml).get_default_system()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -49,7 +49,7 @@ class TestAppConfigGetDefaultSystem(TestAppConfig, TestCase):
         self.assertResult(system)
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -57,8 +57,8 @@ class TestAppConfigGetDefaultSystem(TestAppConfig, TestCase):
                 },
                 "oasys": {
                     "default": True,
-                    "projects": {"ecommerce": {"compose_file_path": "."}}
-                }
+                    "projects": {"ecommerce": {"compose_file_path": "."}},
+                },
             }
         },
         yaml={"services": {"app": {}, "db": {}}},
@@ -77,12 +77,13 @@ class TestAppConfigGetDefaultSystem(TestAppConfig, TestCase):
         )
         self.assertResult(system)
 
+
 class TestAppConfigGetCurrentSystem(TestAppConfig, TestCase):
-    def subject(self, paths, json, yaml):
-        return self.config(paths, json, yaml).get_current_system()
+    def subject(self, path, json, yaml):
+        return self.config(path, json, yaml).get_current_system()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -107,7 +108,7 @@ class TestAppConfigGetCurrentSystem(TestAppConfig, TestCase):
         self.assertResult(system)
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -115,8 +116,8 @@ class TestAppConfigGetCurrentSystem(TestAppConfig, TestCase):
                 },
                 "oasys": {
                     "default": True,
-                    "projects": {"ecommerce": {"compose_file_path": "."}}
-                }
+                    "projects": {"ecommerce": {"compose_file_path": "."}},
+                },
             }
         },
         yaml={"services": {"app": {}, "db": {}}},

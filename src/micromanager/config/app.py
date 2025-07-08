@@ -1,4 +1,4 @@
-from micromanager.config.models import AppConfig
+from micromanager.config.config import AppConfig
 
 
 app_config = AppConfig()
