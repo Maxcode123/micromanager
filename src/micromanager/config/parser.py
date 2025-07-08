@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Protocol
 from dataclasses import replace
 
 import json
@@ -14,6 +14,55 @@ from micromanager.config.errors import (
 )
 
 
+class FileParser(Protocol):
+    """
+    A parser used to parse json or yaml files.
+    """
+
+    def load(self, path: Path) -> dict: ...
+
+
+class JsonParser:
+    """
+    Parser for json files.
+    Used to parse the micromanager configuration.
+    """
+
+    def __init__(self) -> None:
+        self._json = json
+
+    def load(self, path: Path) -> dict:
+        """
+        Parse and load the file in the given path in a dictionary.
+        """
+        with open(path, "r") as f:
+            try:
+                parsed = self._json.load(f)
+            except json.decoder.JSONDecodeError as e:
+                raise InvalidConfigFileError(path, str(e))
+
+        return parsed
+
+
+class YamlParser:
+    """
+    Parser for yaml files.
+    Used to parse docker compose configurations.
+    """
+
+    def __init__(self) -> None:
+        self._yaml = yaml
+
+    def load(self, path: Path) -> dict:
+        """
+        Parse and load the file in the given path in a dictionary.
+        """
+        with open(path, "r") as f:
+            parsed = self._yaml.load(f, yaml.Loader)
+
+        return parsed
+
+
 class Parser:
     """
     Parser for micromanager configuration file.
@@ -22,11 +71,13 @@ class Parser:
     Also, validates for correct application logic configuration.
     """
 
-    def __init__(self, path: Path, json_parser=json, yaml_parser=yaml) -> None:
+    def __init__(
+        self, path: Path, json_parser: FileParser = None, yaml_parser: FileParser = None
+    ) -> None:
         self._path = path
         self._effective_path: Optional[Path] = None
-        self._json = json_parser
-        self._yaml = yaml_parser
+        self._json = JsonParser() if json_parser is None else json_parser
+        self._yaml = YamlParser() if yaml_parser is None else yaml_parser
 
     def parse(self) -> dict[str, System]:
         """Parse the configuration file into a dictionary."""
