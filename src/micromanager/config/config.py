@@ -21,6 +21,14 @@ class AppConfig:
         self._current_system: Optional[System] = None
         self._parser: Parser = Parser(self._PATH) if parser is None else parser
 
+    @property
+    def systems(self) -> dict[str, System]:
+        """
+        Returns all configured systems as a dictionary with system name as key
+        and system as value.
+        """
+        return self._get_config()
+
     def get_default_system(self) -> System:
         """
         Get the default micromanager system.
