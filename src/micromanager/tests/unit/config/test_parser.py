@@ -13,20 +13,20 @@ from micromanager.tests.unit.mocks import MockParser
 
 
 class TestParser(TestCase):
-    def parser(self, paths=None, json=None, yaml=None):
-        paths = self.paths if paths is None else paths
+    def parser(self, path=None, json=None, yaml=None):
+        path = self.path if path is None else path
         json = self.json if json is None else json
         yaml = self.yaml if yaml is None else yaml
-        return Parser(paths, MockParser(json), MockParser(yaml))
+        return Parser(path, MockParser(json), MockParser(yaml))
 
-    def subject(self, paths=None, json=None, yaml=None):
-        return self.parser(paths, json, yaml).parse()
+    def subject(self, path=None, json=None, yaml=None):
+        return self.parser(path, json, yaml).parse()
 
     def assert_invalid_config(self):
         self.assertResultRaises(InvalidConfigFileError)
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -56,7 +56,7 @@ class TestParser(TestCase):
         self.assertResultDict({"mysys": system})
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "sysy": {"projects": {"ecommerce": {"compose_file_path": ".."}}},
@@ -94,7 +94,7 @@ class TestParser(TestCase):
         self.assertResultDict({"sysy": sysy, "systa": systa})
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "sys": {
@@ -128,7 +128,7 @@ class TestParser(TestCase):
         self.assertResultDict({"sys": system})
 
     @args(
-        paths=[Path("some/path/muhahaha")],
+        path=Path("some/path/muhahaha"),
         json={
             "systems": {
                 "sys": {
@@ -143,22 +143,7 @@ class TestParser(TestCase):
         self.assertResultRaises(ConfigFileDoesNotExistError)
 
     @args(
-        paths=[Path("some/path/muhahaha"), Path(".")],
-        json={
-            "systems": {
-                "sys": {
-                    "default": True,
-                    "projects": {"ecommerce": {"compose_file_path": "."}},
-                }
-            }
-        },
-        yaml={"services": {"app": {}}},
-    )
-    def test_parse_existing_and_nonexisting_path(self):
-        self.assertResultNotRaises()
-
-    @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "sys": {
@@ -172,7 +157,7 @@ class TestParser(TestCase):
         self.assertTrue(self.result()["sys"].is_default)
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "sys": {
@@ -188,7 +173,7 @@ class TestParser(TestCase):
         self.assertResultRaises(ComposeFileDoesNotExistError)
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systemsssss": {
                 "sys": {
@@ -204,7 +189,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={"systems": object()},
         yaml={"services": {"app": {}}},
     )
@@ -212,7 +197,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={"systems": {"sys": object()}},
         yaml={"services": {"app": {}}},
     )
@@ -220,7 +205,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={"systems": {"sys": {"projectssss": {}}}},
         yaml={"services": {"app": {}}},
     )
@@ -228,7 +213,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={"systems": {"sys": {"projects": {"ecommerce": object()}}}},
         yaml={"services": {"app": {}}},
     )
@@ -236,7 +221,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -251,7 +236,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -270,7 +255,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "mysys": {
@@ -285,7 +270,7 @@ class TestParser(TestCase):
         self.assert_invalid_config()
 
     @args(
-        paths=[Path(".")],
+        path=Path("."),
         json={
             "systems": {
                 "sysy": {"projects": {"ecommerce": {"compose_file_path": ".."}}},

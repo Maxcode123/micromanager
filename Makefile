@@ -3,7 +3,7 @@ format:
 
 
 test:
-	uv run python -m unittest discover -v src/micromanager/tests/
+	uv run python -m unittest discover -v src/micromanager/tests/unit
 
 
 install-local-package:
