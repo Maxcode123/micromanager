@@ -5,9 +5,9 @@ description = "CLI application to manage microservices with docker-compose"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "compose-py>=0.3.0",
-    "docker-composer>=2.79.7",
     "platformdirs>=4.3.8",
+    "python-on-whales>=0.77.0",
+    "pyyaml>=6.0.2",
     "typer>=0.16.0",
 ]
 
