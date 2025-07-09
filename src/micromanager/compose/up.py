@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Sized
 
 from python_on_whales import DockerClient
 
@@ -14,7 +14,7 @@ class DockerComposeUp:
     }
 
     @classmethod
-    def call(cls, projects: Iterable[Project] = list()):
+    def call(cls, projects: Sized[Project] = list()):
         """
         Run the docker compose up command for the given projects.
         """
