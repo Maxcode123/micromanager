@@ -39,7 +39,7 @@ class JsonParser:
             try:
                 parsed = self._json.load(f)
             except json.decoder.JSONDecodeError as e:
-                raise InvalidConfigFileError(path, str(e))
+                raise InvalidConfigFileError(str(path), str(e))
 
         return parsed
 
@@ -72,7 +72,10 @@ class Parser:
     """
 
     def __init__(
-        self, path: Path, json_parser: FileParser = None, yaml_parser: FileParser = None
+        self,
+        path: Path,
+        json_parser: Optional[FileParser] = None,
+        yaml_parser: Optional[FileParser] = None,
     ) -> None:
         self._path = path
         self._effective_path: Optional[Path] = None
