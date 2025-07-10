@@ -1,6 +1,7 @@
 from python_on_whales import DockerClient
 
 from micromanager.models import Project
+from micromanager.compose.errors import DockerComposeUpError
 
 
 class DockerComposeUp:
@@ -18,4 +19,7 @@ class DockerComposeUp:
         compose_files = list(map(lambda p: str(p.compose_file_path), projects))
         docker = DockerClient(compose_files=compose_files)
 
-        docker.compose.up(**cls.FLAGS)
+        try:
+            docker.compose.up(**cls.FLAGS)
+        except Exception as e:
+            raise DockerComposeUpError(list(map(lambda p: p.name, projects)), str(e))
