@@ -1,5 +1,3 @@
-from typing import Sized
-
 from python_on_whales import DockerClient
 
 from micromanager.models import Project
@@ -13,7 +11,7 @@ class DockerComposeUp:
     }
 
     @classmethod
-    def call(cls, projects: Sized[Project]):
+    def call(cls, projects: list[Project]):
         """
         Run the docker compose up command for the given projects.
         """
