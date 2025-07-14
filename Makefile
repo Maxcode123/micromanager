@@ -15,3 +15,6 @@ install-local-package:
 
 run:
 	uv run typer src/micromanager/main.py run
+
+help:
+	uv run typer src/micromanager/main.py run --help
