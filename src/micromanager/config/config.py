@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Optional
+import os
 
 from platformdirs import user_config_dir
 
@@ -13,13 +14,13 @@ class AppConfig:
     Defines helper methods to interact with the configuration.
     """
 
-    _PATH: Path = Path(user_config_dir("micromanager"), "config.json")
-
     def __init__(self, parser=None) -> None:
         self._config: Optional[dict[str, System]] = None
         self._default_system: Optional[System] = None
         self._current_system: Optional[System] = None
-        self._parser: Parser = Parser(self._PATH) if parser is None else parser
+        self._parser: Parser = (
+            Parser(self.config_file_path()) if parser is None else parser
+        )
 
     @property
     def systems(self) -> dict[str, System]:
@@ -57,6 +58,18 @@ class AppConfig:
         """
         self._current_system = system
 
+    def config_file_path(self) -> Path:
+        """
+        Return the path of the micromanager configuration file.
+
+        The path can be set from the enviroment variable MICROMANAGER_CONFIG_PATH.
+        If not set it defaults to a sensible value according to the operating system.
+        """
+        if self._path is None:
+            self._path = self._get_config_file_path()
+
+        return self._path
+
     def _get_default_system(self) -> System:
         config = self._get_config()
         for system in config.values():
@@ -74,3 +87,11 @@ class AppConfig:
             self._config = self._parser.parse()
 
         return self._config
+
+    def _get_config_file_path(self) -> Path:
+        env_var = os.getenv("MICROMANAGER_CONFIG_PATH", None)
+
+        if env_var is not None:
+            return Path(env_var)
+
+        return Path(user_config_dir("micromanager"), "config.json")
