@@ -1,0 +1,10 @@
+[importlinter]
+root_package = micromanager
+
+[importlinter:contract:layers]
+name=modules are layered
+type=layers
+layers=
+  micromanager.commands
+  micromanager.compose | micromanager.config
+  micromanager.models
