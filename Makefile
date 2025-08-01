@@ -1,6 +1,9 @@
 lint:
 	ruff check
 
+lint-imports:
+	uv run lint-imports --verbose --config src/micromanager/.importlinter
+
 format:
 	ruff format ./
 
