@@ -15,6 +15,7 @@ class AppConfig:
     """
 
     def __init__(self, parser=None) -> None:
+        self._path = None
         self._config: Optional[dict[str, System]] = None
         self._default_system: Optional[System] = None
         self._current_system: Optional[System] = None
