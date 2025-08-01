@@ -13,6 +13,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "import-linter>=2.3",
     "ty>=0.0.1a14",
     "unittest-extensions>=0.4.0",
 ]
