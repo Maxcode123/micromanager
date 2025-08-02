@@ -8,13 +8,15 @@ from micromanager.commands.errors import ArgumentValidationError
 
 
 @app.command()
-def use(system: Annotated[str , Argument()]) -> None:
+def use(system: Annotated[str, Argument()]) -> None:
     """
     Set the given system as your current working system.
     """
     s = app_config.systems.get(system, None)
     if s is None:
         available_systems = list(app_config.systems.keys())
-        raise ArgumentValidationError(f"system {system} is not found in the configured systems; check {app_config.config_file_path()}\nAvailable systems: {available_systems}")
+        raise ArgumentValidationError(
+            f"system {system} is not found in the configured systems; check {app_config.config_file_path()}\nAvailable systems: {available_systems}"
+        )
 
     app_config.set_current_system(s)
