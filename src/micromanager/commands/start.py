@@ -29,10 +29,7 @@ def _parse_input(projects: list[str]) -> list[Project]:
 
     invalid_input = list(filter(lambda p: p not in current_project_names, projects))
     if len(invalid_input) > 0:
-        msg = (
-            f"Cannot start projects {invalid_input} as they are not part of the current"
-            + f"system '{current_system.name}'.\nAvailable projects: {current_project_names}"
-        )
+        msg = f"Cannot start projects {invalid_input} as they are not part of the current system '{current_system.name}'.\nAvailable projects: {current_project_names}"
         raise ArgumentValidationError(msg)
 
     _projects = [p for p in current_system.projects if p.name in projects]
