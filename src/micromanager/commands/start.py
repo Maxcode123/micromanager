@@ -12,7 +12,7 @@ from micromanager.commands.errors import ArgumentValidationError
 @app.command()
 def start(projects: Annotated[list[str] | None, Argument()] = None) -> None:
     """
-    Start the given projects by running docker compose up.
+    Start the given projects by running compose up.
     If the projects argument is empty, starts all projects of the current system.
     """
     if projects is None:
