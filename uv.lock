@@ -110,7 +110,7 @@ wheels = [
 ]
 
 [[package]]
-name = "micromanager"
+name = "compose-micromanager"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

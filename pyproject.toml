@@ -8,7 +8,7 @@ include = ["micromanager*"]
 exclude = ["micromanager.tests*"]
 
 [project]
-name = "micromanager"
+name = "compose-micromanager"
 version = "0.1.0"
 description = "CLI application to manage microservices with docker-compose"
 readme = "README.md"
