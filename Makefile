@@ -16,8 +16,11 @@ test:
 install-local-package:
 	uv pip install -e .
 
-run:
-	uv run typer src/micromanager/main.py run
+start:
+	uv run typer src/micromanager/main.py run start
+
+stop:
+	uv run typer src/micromanager/main.py run stop
 
 help:
 	uv run typer src/micromanager/main.py run --help
