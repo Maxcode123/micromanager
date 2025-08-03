@@ -21,6 +21,9 @@ dependencies = [
     "typer>=0.16.0",
 ]
 
+[project.scripts]
+micromanager = "micromanager:main.app"
+
 [dependency-groups]
 dev = [
     "import-linter>=2.3",
