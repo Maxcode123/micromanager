@@ -1,3 +1,12 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["micromanager*"]
+exclude = ["micromanager.tests*"]
+
 [project]
 name = "micromanager"
 version = "0.1.0"
