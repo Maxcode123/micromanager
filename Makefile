@@ -19,6 +19,14 @@ install-local-package:
 build:
 	uv build
 
+publish:
+	uv publish
+
+clean:
+	rm -rf dist/
+	rm -rf src/compose_micromanager.egg-info/
+	rm -rf src/micromanager.egg-info
+
 start:
 	uv run typer src/micromanager/main.py run start
 
