@@ -16,6 +16,9 @@ test:
 install-local-package:
 	uv pip install -e .
 
+build:
+	uv build
+
 start:
 	uv run typer src/micromanager/main.py run start
 
