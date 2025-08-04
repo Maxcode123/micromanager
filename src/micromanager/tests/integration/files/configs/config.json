@@ -1,0 +1,19 @@
+{
+  "systems": {
+    "eshop": {
+      "default": "true",
+      "projects": {
+        "payments": {"compose_file_path": "$MICROMANAGER_ROOT/src/micromanager/tests/integration/files/yamls/eshop_payments.yml"},
+        "customers": {"compose_file_path": "$MICROMANAGER_ROOT/src/micromanager/tests/integration/files/yamls/eshop_customers.yml"},
+        "orders": {"compose_file_path": "$MICROMANAGER_ROOT/src/micromanager/tests/integration/files/yamls/eshop_orders.yml"}
+      }
+    },
+    "social-media-platform": {
+      "projects": {
+        "networks": {"compose_file_path": "$MICROMANAGER_ROOT/src/micromanager/tests/integration/files/yamls/social_networks.yml"},
+        "events": {"compose_file_path": "$MICROMANAGER_ROOT/src/micromanager/tests/integration/files/yamls/social_events.yml"},
+        "advertisements": {"compose_file_path": "$MICROMANAGER_ROOT/src/micromanager/tests/integration/files/yamls/social_advertisements.yml"}
+      }
+    }
+  }
+}
