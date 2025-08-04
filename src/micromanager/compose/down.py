@@ -1,4 +1,5 @@
 from python_on_whales import DockerClient
+from python_on_whales.exceptions import DockerException
 from rlist import rlist
 
 from micromanager.models import Project
@@ -8,7 +9,9 @@ from micromanager.compose.errors import DockerComposeDownError
 class DockerComposeDown:
     """The docker compose down command interface"""
 
-    FLAGS = {}
+    FLAGS = {
+        "quiet": False,
+    }
 
     @classmethod
     def call(cls, projects: rlist[Project]):
@@ -20,7 +23,7 @@ class DockerComposeDown:
 
         try:
             docker.compose.down(**cls.FLAGS)
-        except Exception as e:
+        except DockerException as e:
             raise DockerComposeDownError(
                 projects.map(lambda p: p.name).to_list(), str(e)
-            )
+            ) from None

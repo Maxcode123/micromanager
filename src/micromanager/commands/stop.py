@@ -3,11 +3,9 @@ from typing import Annotated
 from typer import Argument
 from rlist import rlist
 
-from micromanager.models import Project
 from micromanager.compose.down import DockerComposeDown
 from micromanager.config.app import app_config
 from micromanager.commands.app import app
-from micromanager.commands.errors import ArgumentValidationError
 from micromanager.commands.utils import parse_projects
 
 
