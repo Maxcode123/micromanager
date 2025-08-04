@@ -13,6 +13,9 @@ type-check:
 test:
 	uv run python -m unittest discover -v src/micromanager/tests/unit
 
+test-integration:
+	uv run python -m unittest discover -v src/micromanager/tests/integration
+
 install-local-package:
 	uv pip install -e .
 
