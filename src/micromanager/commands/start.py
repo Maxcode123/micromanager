@@ -2,6 +2,7 @@ from typing import Annotated
 
 from typer import Argument
 from rlist import rlist
+from rich import print
 
 from micromanager.compose.up import DockerComposeUp
 from micromanager.config.app import app_config
@@ -20,4 +21,6 @@ def start(projects: Annotated[list[str] | None, Argument()] = None) -> None:
     else:
         _projects = parse_projects(projects)
 
-    DockerComposeUp.call(rlist(_projects))
+    _projects = rlist(_projects)
+    DockerComposeUp.call(_projects)
+    print(f"Started projects: {_projects.map(lambda p: p.name).to_list()}")
