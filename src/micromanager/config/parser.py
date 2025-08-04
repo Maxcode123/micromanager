@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Optional, Protocol
 from dataclasses import replace
@@ -35,11 +36,11 @@ class JsonParser:
         """
         Parse and load the file in the given path in a dictionary.
         """
-        with open(path, "r") as f:
+        with open(os.path.expandvars(path), "r") as f:
             try:
                 parsed = self._json.load(f)
             except json.decoder.JSONDecodeError as e:
-                raise InvalidConfigFileError(str(path), str(e))
+                raise InvalidConfigFileError(str(path), str(e)) from None
 
         return parsed
 
@@ -57,7 +58,7 @@ class YamlParser:
         """
         Parse and load the file in the given path in a dictionary.
         """
-        with open(path, "r") as f:
+        with open(os.path.expandvars(path), "r") as f:
             parsed = self._yaml.load(f, yaml.Loader)
 
         return parsed
@@ -150,7 +151,7 @@ class Parser:
                 f"Project '{name}' does not contain a 'compose_file_path' field",
             )
 
-        compose_file_path = Path(attrs["compose_file_path"])
+        compose_file_path = Path(os.path.expandvars(attrs["compose_file_path"]))
         if not compose_file_path.exists():
             raise ComposeFileDoesNotExistError(name, str(compose_file_path))
 
