@@ -39,7 +39,7 @@ class JsonParser:
         with open(os.path.expandvars(path), "r") as f:
             try:
                 parsed = self._json.load(f)
-            except json.decoder.JSONDecodeError as e:
+            except json.decoder.JSONDecodeError as e:  # ty: ignore unresolved-attribute
                 raise InvalidConfigFileError(str(path), str(e)) from None
 
         return parsed
