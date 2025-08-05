@@ -93,6 +93,6 @@ class AppConfig:
         env_var = os.getenv("MICROMANAGER_CONFIG_PATH", None)
 
         if env_var is not None:
-            return Path(env_var)
+            return Path(os.path.expandvars(env_var))
 
         return Path(user_config_dir("micromanager"), "config.json")

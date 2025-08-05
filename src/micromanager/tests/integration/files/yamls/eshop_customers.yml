@@ -1,0 +1,21 @@
+services:
+  whoami:
+    image: traefik/whoami
+    container_name: whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`localhost`)"
+    networks:
+      - web
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - whoami
+    networks:
+      - web
+
+networks:
+  web:

@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from typer import Argument
+from rich import print
 
 from micromanager.config.app import app_config
 from micromanager.commands.app import app
@@ -20,3 +21,4 @@ def use(system: Annotated[str, Argument()]) -> None:
         )
 
     app_config.set_current_system(s)
+    print(f"Using system: {s.name}")
