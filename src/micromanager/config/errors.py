@@ -1,4 +1,21 @@
-class ParserError(Exception):
+class ConfigError(Exception):
+    """Base class for configuration errors."""
+
+
+class NoDefaultSystemError(ConfigError):
+    """
+    No default system found in the configuration.
+
+    Serves mainly as a placeholder; an error should have been raised in the parser level
+    for this kind of situation before reaching the config level.
+    """
+
+    def __init__(self) -> None:
+        msg = "No default system found in the configuration."
+        super().__init__(msg)
+
+
+class ParserError(ConfigError):
     """Base class for errors originating in the configuration parser."""
 
     pass

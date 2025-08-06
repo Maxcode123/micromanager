@@ -6,6 +6,7 @@ from platformdirs import user_config_dir
 
 from micromanager.models import System
 from micromanager.config.parser import Parser
+from micromanager.config.errors import NoDefaultSystemError
 
 
 class AppConfig:
@@ -76,6 +77,8 @@ class AppConfig:
         for system in config.values():
             if system.is_default:
                 return system
+
+        raise NoDefaultSystemError()
 
     def _get_current_system(self) -> System:
         if self._current_system is None:
