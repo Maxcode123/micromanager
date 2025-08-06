@@ -1,0 +1,34 @@
+name: lint
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: ["main", "tester/*"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    env:
+      INTERPRETER: python
+      PIP: python -m pip
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set Up Python 3.13
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.13"
+    - name: Install uv
+      run: make install-uv
+    - name: Create virtual environment
+      run: uv venv
+    - name: Install local package
+      run: make install-local-package
+    - name: Install linter
+      run: make install-linter
+    - name: Lint
+      run: make lint
