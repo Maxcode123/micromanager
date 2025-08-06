@@ -10,6 +10,7 @@ def config() -> None:
     """
     Display the current configuration.
     """
+    print(f"micromanager configuration file: {app_config.config_file_path()}")
     for name, system in app_config.systems.items():
         print(
             f"[b bright_green]{name}:[/b bright_green]\n\t{system_pretty_str(system)}"
