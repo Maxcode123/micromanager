@@ -14,16 +14,18 @@ class DockerComposeDown:
     }
 
     @classmethod
-    def call(cls, projects: rlist[Project]):
+    def call(cls, projects: rlist[Project]) -> None:
         """
         Run the docker compose down command for the given projects.
-        """
-        compose_files = projects.map(lambda p: str(p.compose_file_path))
-        docker = DockerClient(compose_files=compose_files.to_list())
 
-        try:
-            docker.compose.down(**cls.FLAGS)
-        except DockerException as e:
-            raise DockerComposeDownError(
-                projects.map(lambda p: p.name).to_list(), str(e)
-            ) from None
+        Runs compose down on each project separately according to the
+        order of the given list.
+        """
+        for project in projects:
+            client = DockerClient(compose_files=project.compose_file_path)
+            try:
+                client.compose.down(**cls.FLAGS)
+            except DockerException as e:
+                raise DockerComposeDownError(
+                    projects.map(lambda p: p.name).to_list(), str(e)
+                ) from None
