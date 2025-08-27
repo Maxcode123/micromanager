@@ -27,6 +27,9 @@ micromanager = "micromanager:main.app"
 [dependency-groups]
 dev = [
     "import-linter>=2.3",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.18",
+    "mkdocstrings[python]>=0.30.0",
     "ty>=0.0.1a14",
     "unittest-extensions>=0.4.0",
 ]
