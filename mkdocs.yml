@@ -1,0 +1,45 @@
+site_name: micromanager
+site_url: https://maxcode123.github.io/micromanager/
+repo_url: https://github.com/Maxcode123/micromanager
+repo_name: Maxcode123/micromanager
+nav:
+  - Get started:
+    - What is micromanager?: index.md
+    - Terminology: terminology.md
+    - Installation: installation.md
+    - Usage: usage.md
+ 
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+- mkdocstrings
+- search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

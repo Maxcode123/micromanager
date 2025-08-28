@@ -38,3 +38,9 @@ stop:
 
 help:
 	uv run typer src/micromanager/main.py run --help
+
+start-documentation-server:
+	uv run python -m mkdocs serve
+
+deploy-documentation:
+	uv run python -m mkdocs gh-deploy --config-file mkdocs.yml

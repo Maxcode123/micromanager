@@ -1,0 +1,19 @@
+{
+  "systems": {
+    "eshop": {
+      "default": "true",
+      "projects": {
+        "payments": {"compose_file_path": "path/to/compose/file"},
+        "customers": {"compose_file_path": "path/to/compose/file"},
+        "orders": {"compose_file_path": "path/to/compose/file"}
+      }
+    },
+    "social-media-platform": {
+      "projects": {
+        "networks": {"compose_file_path": "path/to/compose/file"},
+        "events": {"compose_file_path": "path/to/compose/file"},
+        "advertisements": {"compose_file_path": "path/to/compose/file"}
+      }
+    }
+  }
+}
