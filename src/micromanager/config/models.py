@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from rlist import rlist
+
 from micromanager.models import System, Project
 
 
@@ -13,7 +15,7 @@ class ConfiguredSystem:
 
     name: str
     is_default: Optional[bool]
-    projects: list[Project]
+    projects: rlist[Project]
 
     def to_system(self) -> System:
         """
