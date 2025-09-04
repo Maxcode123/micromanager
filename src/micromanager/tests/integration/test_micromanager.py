@@ -28,7 +28,7 @@ class TestMicromanager(TestCase):
         self.assert_in_result("Stopped projects:")
 
     def test_stop_all_started_services(self):
-        run("start")
+        run("start", compose_teardown=False)
         response = run("stop")
         self.assertIn("Stopped projects:", response.output)
 
@@ -41,7 +41,7 @@ class TestMicromanager(TestCase):
         self.assert_in_result("Stopped projects: ['payments', 'customers']")
 
     def test_stop_started_services_with_argument(self):
-        run("start")
+        run("start", compose_teardown=False)
         response = run(["stop", "payments"])
         self.assertIn("Stopped projects: ['payments']", response.output)
 
