@@ -52,3 +52,18 @@ class TestMicromanager(TestCase):
     @args(["use", "eshop"], compose_teardown=False)
     def test_use_current_system(self):
         self.assert_in_result("Using system: eshop")
+
+    def test_status_stopped_projects(self):
+        response = run("status")
+        self.assertRegex(
+            response.output,
+            "payments( )*STOPPED\ncustomers( )*STOPPED\norders( )*STOPPED",
+        )
+
+    def test_status_running_projects(self):
+        run("start", compose_teardown=False)
+        response = run("status")
+        self.assertRegex(
+            response.output,
+            "payments( )*RUNNING.{6}\ncustomers( )*RUNNING.{6}\norders( )*RUNNING.{6}",
+        )
