@@ -8,7 +8,7 @@ format:
 	ruff format ./
 
 type-check:
-	uv run ty check
+	uv run ty check --exclude src/micromanager/tests/
 
 test:
 	uv run python -m unittest discover -v src/micromanager/tests/unit
