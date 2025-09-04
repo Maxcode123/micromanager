@@ -25,3 +25,9 @@ class DockerComposeDownError(DockerComposeError):
     def __init__(self, projects: list[str], error: str) -> None:
         msg = f"An error occured during the execution of docker compose down for the projects {projects}: {error}"
         super().__init__(msg)
+
+
+class DockerComposePsError(DockerComposeError):
+    """
+    An error occured on the execution of docker compose ps.
+    """
