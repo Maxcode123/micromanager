@@ -64,3 +64,11 @@ micromanager stop [PROJECTS]
 
 Stop the given projects by running compose down. If the projects argument is empty,
 stops all projects of the current system.
+
+### status
+
+```sh
+micromanager status
+```
+
+Print the status of all configured projects in the current system.
