@@ -36,6 +36,9 @@ start:
 stop:
 	uv run typer src/micromanager/main.py run stop
 
+status:
+	uv run typer src/micromanager/main.py run status
+
 help:
 	uv run typer src/micromanager/main.py run --help
 
