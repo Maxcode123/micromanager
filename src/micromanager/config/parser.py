@@ -5,6 +5,7 @@ from dataclasses import replace
 
 import json
 import yaml
+from rlist import rlist
 
 from micromanager.models import System, Project, Service
 from micromanager.config.models import ConfiguredSystem
@@ -132,7 +133,7 @@ class Parser:
                 f"'projects' field does not exist in the '{name}' system",
             )
 
-        projects = []
+        projects = rlist()
         for project_name, project_attrs in attrs["projects"].items():
             if not isinstance(project_attrs, dict):
                 raise InvalidConfigFileError(
@@ -162,10 +163,10 @@ class Parser:
         )
         return project
 
-    def _build_services(self, compose_file_path: Path) -> list[Service]:
+    def _build_services(self, compose_file_path: Path) -> rlist[Service]:
         compose_file = self._yaml.load(compose_file_path)
 
-        services = [Service(name=s) for s in compose_file["services"]]
+        services = rlist([Service(name=s) for s in compose_file["services"]])
         return services
 
     def _validate_config(self, config: dict[str, System]) -> None:
