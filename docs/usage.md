@@ -72,3 +72,10 @@ micromanager status
 ```
 
 Print the status of all configured projects in the current system.
+
+```sh
+micromanager restart
+```
+
+Restart the given projects by running compose restart. If the projects argument
+is empty, restarts all projects of the current system.
