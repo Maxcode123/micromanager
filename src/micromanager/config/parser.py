@@ -94,8 +94,8 @@ class Parser:
 
     def _parse_config(self) -> dict[str, System]:
         json_file = self._json.load(
-            self._effective_path
-        )  # ty: ignore invalid-argument-type
+            self._effective_path  # ty: ignore invalid-argument-type
+        )
         config = dict()
 
         if "systems" not in json_file.keys():
