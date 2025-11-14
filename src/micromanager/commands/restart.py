@@ -1,0 +1,36 @@
+from typing import Annotated
+
+from typer import Argument
+from rlist import rlist
+from rich import print
+
+from micromanager.compose.restart import DockerComposeRestart
+from micromanager.config.app import app_config
+from micromanager.commands.app import app
+from micromanager.commands.utils import parse_projects, get_project_names
+
+
+def _autocompletion(incomplete: str):
+    for name in get_project_names():
+        if name.startswith(incomplete):
+            yield name
+
+
+@app.command()
+def restart(
+    projects: Annotated[
+        list[str] | None, Argument(autocompletion=_autocompletion)
+    ] = None,
+) -> None:
+    """
+    Restart the given projects by running compose restart.
+    If the projects argument is empty, restarts all projects of the current system.
+    """
+    if projects is None:
+        _projects = app_config.get_current_system().projects
+    else:
+        _projects = parse_projects(projects)
+
+    _projects = rlist(_projects)
+    DockerComposeRestart.call(_projects)
+    print(f"Restarted projects: {_projects.map(lambda p: p.name).to_list()}")
