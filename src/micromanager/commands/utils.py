@@ -20,3 +20,10 @@ def parse_projects(projects: list[str]) -> list[Project]:
 
     _projects = [p for p in current_system.projects if p.name in projects]
     return _projects
+
+
+def get_project_names() -> rlist[str]:
+    """
+    Get the names of the projects in the current system.
+    """
+    return app_config.get_current_system().projects.map(lambda p: p.name)
