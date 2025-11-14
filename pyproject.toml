@@ -9,7 +9,7 @@ exclude = ["micromanager.tests*"]
 
 [project]
 name = "compose-micromanager"
-version = "0.3.1"
+version = "0.3.2"
 description = "CLI application to manage microservices with docker-compose"
 readme = "README.md"
 requires-python = ">=3.10"
