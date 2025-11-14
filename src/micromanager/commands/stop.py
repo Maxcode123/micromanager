@@ -7,11 +7,21 @@ from rich import print
 from micromanager.compose.down import DockerComposeDown
 from micromanager.config.app import app_config
 from micromanager.commands.app import app
-from micromanager.commands.utils import parse_projects
+from micromanager.commands.utils import parse_projects, get_project_names
+
+
+def _autocompletion(incomplete: str):
+    for name in get_project_names():
+        if name.startswith(incomplete):
+            yield name
 
 
 @app.command()
-def stop(projects: Annotated[list[str] | None, Argument()] = None) -> None:
+def stop(
+    projects: Annotated[
+        list[str] | None, Argument(autocompletion=_autocompletion)
+    ] = None,
+) -> None:
     """
     Stop the given projects by running compose down.
     If the projects argument is empty, stops all projects of the current system.

@@ -8,8 +8,15 @@ from micromanager.commands.app import app
 from micromanager.commands.errors import ArgumentValidationError
 
 
+def _autocompletion(incomplete: str):
+    names = app_config.systems.keys()
+    for name in names:
+        if name.startswith(incomplete):
+            yield name
+
+
 @app.command()
-def use(system: Annotated[str, Argument()]) -> None:
+def use(system: Annotated[str, Argument(autocompletion=_autocompletion)]) -> None:
     """
     Set the given system as your current working system.
     """
