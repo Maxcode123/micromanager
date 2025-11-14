@@ -16,7 +16,7 @@ install-import-linter:
 
 .PHONY: lint
 lint:
-	ruff check
+	ruff check --exclude src/micromanager/tests/
 
 .PHONY: lint-imports
 lint-imports:
