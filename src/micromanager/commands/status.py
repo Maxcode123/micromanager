@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Iterator
 from collections import Counter
 
 from rich import print
@@ -56,7 +56,7 @@ class StatusTable:
     def _whitespace_chars(self, value: str) -> int:
         return self.ROW_LENGTHS[0] - len(value)
 
-    def _rows(self) -> Generator[tuple[str, str]]:
+    def _rows(self) -> Iterator[tuple[str, str]]:
         for project in self._response:
             if len(project.containers) == 0:
                 status = "STOPPED"
