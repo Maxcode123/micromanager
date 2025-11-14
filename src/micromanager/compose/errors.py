@@ -31,3 +31,9 @@ class DockerComposePsError(DockerComposeError):
     """
     An error occured on the execution of docker compose ps.
     """
+
+
+class DockerComposeRestartError(DockerComposeError):
+    """
+    An error occured on the execution of docker compose restart
+    """
