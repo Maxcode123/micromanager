@@ -1,5 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
+from typing import TypeAlias
 
 from python_on_whales import DockerClient, Container as _Container
 from python_on_whales.exceptions import DockerException
@@ -30,7 +31,7 @@ class DockerComposeProjectStatus:
     containers: rlist[Container]
 
 
-type DockerComposePsResponse = rlist[DockerComposeProjectStatus]
+DockerComposePsResponse: TypeAlias = rlist[DockerComposeProjectStatus]
 
 
 class DockerComposePs:
