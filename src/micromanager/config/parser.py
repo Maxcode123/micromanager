@@ -79,14 +79,14 @@ class Parser:
         json_parser: Optional[FileParser] = None,
         yaml_parser: Optional[FileParser] = None,
     ) -> None:
-        self._path = path
+        self._path: Path = path
         self._effective_path: Optional[Path] = None
         self._json = JsonParser() if json_parser is None else json_parser
         self._yaml = YamlParser() if yaml_parser is None else yaml_parser
 
     def parse(self) -> dict[str, System]:
         """Parse the configuration file into a dictionary."""
-        if self._path.exists(follow_symlinks=False):
+        if self._path.exists():
             self._effective_path = self._path
             return self._parse_config()
 
