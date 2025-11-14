@@ -12,7 +12,7 @@ name = "compose-micromanager"
 version = "0.3.0"
 description = "CLI application to manage microservices with docker-compose"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "platformdirs>=4.3.8",
     "python-on-whales>=0.78.0",
