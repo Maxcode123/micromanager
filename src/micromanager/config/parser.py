@@ -93,26 +93,30 @@ class Parser:
         raise ConfigFileDoesNotExistError(str(self._path))
 
     def _parse_config(self) -> dict[str, System]:
-        json_file = self._json.load(self._effective_path)
+        json_file = self._json.load(
+            self._effective_path
+        )  # ty: ignore invalid-argument-type
         config = dict()
 
         if "systems" not in json_file.keys():
             raise InvalidConfigFileError(
-                self._effective_path, "'systems' field does not exist in config.json"
+                str(self._effective_path),
+                "'systems' field does not exist in config.json",
             )
 
         systems = json_file["systems"]
 
         if not isinstance(systems, dict):
             raise InvalidConfigFileError(
-                self._effective_path,
+                str(self._effective_path),
                 "The value of the systems field is not a valid object",
             )
 
         for name, system in json_file["systems"].items():
             if not isinstance(system, dict):
                 raise InvalidConfigFileError(
-                    self._effective_path, f"The system '{name}' is not a valid object"
+                    str(self._effective_path),
+                    f"The system '{name}' is not a valid object",
                 )
             config[name] = self._build_system(name, system)
 
@@ -129,7 +133,7 @@ class Parser:
 
         if "projects" not in attrs:
             raise InvalidConfigFileError(
-                self._effective_path,
+                str(self._effective_path),
                 f"'projects' field does not exist in the '{name}' system",
             )
 
@@ -137,7 +141,7 @@ class Parser:
         for project_name, project_attrs in attrs["projects"].items():
             if not isinstance(project_attrs, dict):
                 raise InvalidConfigFileError(
-                    self._effective_path,
+                    str(self._effective_path),
                     f"The project '{project_name}' of system '{name}' is not a valid object",
                 )
             projects.append(self._build_project(project_name, project_attrs))
@@ -148,7 +152,7 @@ class Parser:
     def _build_project(self, name: str, attrs: dict) -> Project:
         if "compose_file_path" not in attrs:
             raise InvalidConfigFileError(
-                self._effective_path,
+                str(self._effective_path),
                 f"Project '{name}' does not contain a 'compose_file_path' field",
             )
 
@@ -173,19 +177,19 @@ class Parser:
         defaults = {sys_name for sys_name, sys in config.items() if sys.is_default}
         if len(defaults) > 1:
             raise InvalidConfigFileError(
-                self._effective_path,
+                str(self._effective_path),
                 f"More than one default systems configured ({defaults}); only one system can be the default",
             )
 
         if len(config) > 1 and len(defaults) == 0:
             raise InvalidConfigFileError(
-                self._effective_path,
+                str(self._effective_path),
                 'One system must be the default; set "default"="true"',
             )
 
         if len(config) == 1 and list(config.values())[0].is_default is False:
             sys_name = list(config.keys())[0]
             raise InvalidConfigFileError(
-                self._effective_path,
+                str(self._effective_path),
                 f'\'{sys_name}\' must be the default system since it is the only one. set "default"="true"',
             )
