@@ -890,11 +890,11 @@ wheels = [
 
 [[package]]
 name = "record-list"
-version = "0.2.2"
+version = "0.2.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/05/7c/cb54c6f509c1d64016ad4f32a45a015176ec3df87dc067ac581504a0133c/record_list-0.2.2.tar.gz", hash = "sha256:517c6d5489674afe4b4b523ffb473a1dd1301a797562765693ad2dabfcff22f1", size = 4164 }
+sdist = { url = "https://files.pythonhosted.org/packages/17/e1/555a5b30673aceec7552cbbc3f1d7c3fced60529f5f493aa1bcd4565fde4/record_list-0.2.3.tar.gz", hash = "sha256:0ac825e08d0c9cdafbacf612c5e4e320ecf9c2448f79152e06c05a44c0b98ffa", size = 4209 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/07/44/f043188a31d6062cc9b56ef83e1264de650a12a23d6f8568b856b8032903/record_list-0.2.2-py3-none-any.whl", hash = "sha256:58d9b45984000b6707a7a444210689a4dc9f2a4dd45a0b4535dc814037bdf0db", size = 4630 },
+    { url = "https://files.pythonhosted.org/packages/a4/9f/3143cab17539de53439d05e6ba0b68ac5d159cf2d6a9dd9a3995232ada3b/record_list-0.2.3-py3-none-any.whl", hash = "sha256:4f186145c455856e8d2c7d8e13428d58ec2494825514f7ca1f991cd49d9c95cb", size = 4667 },
 ]
 
 [[package]]
